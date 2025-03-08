@@ -2,11 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import './update-student.component.css'
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-update-student',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterLink,RouterOutlet],
   templateUrl: './update-student.component.html',
   styleUrl: './update-student.component.css'
 })
@@ -32,6 +34,7 @@ export class UpdateStudentComponent {
     }).subscribe({
       next: (res) => {
         console.log('Update successful', res);
+        this.student={name :"",email:""}
       },
       error: (err) => {
         console.error('Update failed', err);

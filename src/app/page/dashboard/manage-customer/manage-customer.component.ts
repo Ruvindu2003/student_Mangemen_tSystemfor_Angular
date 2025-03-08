@@ -28,6 +28,7 @@ export class ManageCustomerComponent {
     this.http.get(`http://localhost:8080/api/Student/SearchStudent/${this.id}`).subscribe({
       next: (res) => {
         this.studentList = [res];
+        
       },
       error: (err) => {
         console.error('error', err.error);
