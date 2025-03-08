@@ -1,24 +1,58 @@
-<div class="flex justify-center items-center min-h-screen p-4">
-  <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-    <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Add Student</h2>
-
-    <form id="studentForm"> 
-      <div class="mb-4">
-        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Full Name</label>
-        <input [(ngModel)]="student.name"   type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter full name" required>
+<div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+  <form  #studentForm="ngForm" novalidate>
+    <div class="grid gap-6 mb-6 md:grid-cols-2">
+  
+      <div>
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+          Full Name
+        </label>
+        <input [(ngModel)]="student.name" name="name" type="text" id="name"
+               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+               placeholder="John Doe" required>
+        <div *ngIf="studentForm.submitted && studentForm.controls['name']?.errors?.['required']" 
+             class="text-red-500 text-sm mt-1">
+          Name is required
+        </div>
       </div>
 
-      <div class="mb-4">
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email Address</label>
-        <input [(ngModel)]="student.email" type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@example.com" required>
-      </div>
 
-      <div class="mb-4">
-        <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>  
-        <input [(ngModel)]="student.Gender"type="text" id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter gender">
+      <div>
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+          Email Address
+        </label>
+        <input [(ngModel)]="student.email" name="email" type="email" id="email"
+               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+               placeholder="john.doe@example.com" required>
+        <div *ngIf="studentForm.submitted && studentForm.controls['email']?.errors?.['required']" 
+             class="text-red-500 text-sm mt-1">
+          Email is required
+        </div>
       </div>
+    </div>
 
-      <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"(click)="addStudent()">Add Student</button>
-    </form>
-  </div>
+    <!-- Gender Field -->
+    <div class="mb-6">
+      <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        Gender
+      </label>
+      <select [(ngModel)]="student.gender" name="gender" id="gender"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+              required>
+        <option value="" disabled>Select Gender</option>
+        <option value="MALE">MALE</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+      <div *ngIf="studentForm.submitted && studentForm.controls['gender']?.errors?.['required']" 
+           class="text-red-500 text-sm mt-1">
+        Gender is required
+      </div>
+    </div>
+
+
+    <button (click)="addStudent()" type="submit" 
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+      Add Student
+    </button>
+  </form>
 </div>

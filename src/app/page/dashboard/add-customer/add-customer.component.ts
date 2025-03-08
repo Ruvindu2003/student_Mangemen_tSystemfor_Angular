@@ -1,37 +1,46 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,  } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-customer',
-  imports: [FormsModule,CommonModule],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './add-customer.component.html',
-  styleUrl: './add-customer.component.css'
+  styleUrls: ['./add-customer.component.css']
 })
 export class AddCustomerComponent {
+  public student: any = {
+    name: "",
+    email: "",
+    gender: "" 
+  };
 
-  public student:any={
-    name:"",
-    email:"null",
-    Gender:"null"
-  }
-
-  constructor(private http:HttpClient){
-  }
-  addStudent(){
-    this.http.post("http://localhost:8081/api/Student/addStudent",this.student).subscribe(res=>{
-      console.log(res);
-      
-    }
-
-    )
-    console.log();
+  constructor(private http: HttpClient) {
     
+   }
+
+
+  public id:string = "1";
+
+  addStudent() {
+   
+    this.http.post("http://localhost:8080/api/Student/addStudent", this.student, {
+      headers: { 'Content-Type': 'application/json' } 
+    }).subscribe({
+      next: (res) => {
+        console.log('Success:', res);
+       
+        this.student = { name: "",email: "" };
+      },
+
+      error: (err) => {
+        console.error('Error:', err.error); 
+      }
+
+    });
   }
-
- 
-
- 
 
 }
+
