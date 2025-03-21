@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import StudentService from '../../../service/studentService';
 
 @Component({
   selector: 'app-manage-customer',
@@ -14,17 +15,19 @@ export class ManageCustomerComponent {
   public studentList: any = [];
   public id: string = "1";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private studentService:StudentService) {
     this.loadStudents(); 
   }
 
   loadStudents() {
-    this.http.get("http://localhost:8080/api/Student/getAll").subscribe((data) => {
-      this.studentList = data;
+   this.studentService.lodStudentData().subscribe({
+      next: (res) => {
+        this.studentList = res;
+      }
     });
   }
 
-  SearchStudent() {
+  SearchStudent(id: string) {
     this.http.get(`http://localhost:8080/api/Student/SearchStudent/${this.id}`).subscribe({
       next: (res) => {
         this.studentList = [res];
